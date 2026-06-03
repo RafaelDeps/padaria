@@ -1,9 +1,18 @@
 from fastapi import FastAPI
+from fastapi.middleware.cors import CORSMiddleware
 from api import auth_routes, product_routes, movement_routes, dashboard_routes
 from api.errors import validation_exception_handler, generic_exception_handler
 from fastapi.exceptions import RequestValidationError
 
 app = FastAPI(title="Padaria Inventory Management API")
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["http://localhost:3000", "http://127.0.0.1:3000"],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
 app.add_exception_handler(RequestValidationError, validation_exception_handler)
 app.add_exception_handler(Exception, generic_exception_handler)
