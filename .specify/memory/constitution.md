@@ -1,50 +1,53 @@
-# [PROJECT_NAME] Constitution
-<!-- Example: Spec Constitution, TaskFlow Constitution, etc. -->
+<!--
+SYNC IMPACT REPORT
+Version change: N/A → 1.0.0
+List of modified principles: Initial draft creation
+Added sections: Core Principles (I-V), Stack Tecnológica e Restrições, Regras de Negócio e Alertas Críticos, Governance
+Templates requiring updates:
+- .specify/templates/plan-template.md (✅ aligned)
+- .specify/templates/spec-template.md (✅ aligned)
+- .specify/templates/tasks-template.md (✅ aligned)
+Follow-up TODOs: None
+-->
+# Sistema de Gestão de Estoque para Padaria Constitution
 
 ## Core Principles
 
-### [PRINCIPLE_1_NAME]
-<!-- Example: I. Library-First -->
-[PRINCIPLE_1_DESCRIPTION]
-<!-- Example: Every feature starts as a standalone library; Libraries must be self-contained, independently testable, documented; Clear purpose required - no organizational-only libraries -->
+### I. Arquitetura MVC Rigorosa
+O sistema deve seguir estritamente o padrão Model-View-Controller (MVC). O Backend em Python atua como o Controller central, gerenciando a lógica de negócio e a comunicação com o Banco de Dados (Model - PostgreSQL), enquanto o React provê a interface (View). A separação de responsabilidades deve ser total para garantir manutenibilidade.
 
-### [PRINCIPLE_2_NAME]
-<!-- Example: II. CLI Interface -->
-[PRINCIPLE_2_DESCRIPTION]
-<!-- Example: Every library exposes functionality via CLI; Text in/out protocol: stdin/args → stdout, errors → stderr; Support JSON + human-readable formats -->
+### II. Componentização e Código React Limpo
+O Frontend deve ser construído com componentes React pequenos, modulares e reutilizáveis. O código deve seguir princípios de Clean Code, evitando componentes gigantes e lógica de negócio complexa dentro da View sempre que possível.
 
-### [PRINCIPLE_3_NAME]
-<!-- Example: III. Test-First (NON-NEGOTIABLE) -->
-[PRINCIPLE_3_DESCRIPTION]
-<!-- Example: TDD mandatory: Tests written → User approved → Tests fail → Then implement; Red-Green-Refactor cycle strictly enforced -->
+### III. UX Focada em Eficiência e Alertas Visuais
+A interface deve ser intuitiva e organizada nos 4 módulos principais: Home, Dashboard, Estoque e Histórico de Movimentações. Alertas críticos devem ser destacados visualmente para ação imediata do usuário, priorizando a prevenção de perdas por validade e falta de insumos.
 
-### [PRINCIPLE_4_NAME]
-<!-- Example: IV. Integration Testing -->
-[PRINCIPLE_4_DESCRIPTION]
-<!-- Example: Focus areas requiring integration tests: New library contract tests, Contract changes, Inter-service communication, Shared schemas -->
+### IV. Visualização de Estoque em Formato de Tabela
+A listagem de itens no módulo "Estoque" DEVE obrigatoriamente ser renderizada em formato de Tabela (Data Table). O uso de cartões (cards) para a listagem principal de estoque é expressamente proibido para garantir a densidade de informação necessária para a gestão.
 
-### [PRINCIPLE_5_NAME]
-<!-- Example: V. Observability, VI. Versioning & Breaking Changes, VII. Simplicity -->
-[PRINCIPLE_5_DESCRIPTION]
-<!-- Example: Text I/O ensures debuggability; Structured logging required; Or: MAJOR.MINOR.BUILD format; Or: Start simple, YAGNI principles -->
+### V. Performance e Otimização de Consultas
+À medida que o histórico de movimentações cresce, as consultas ao PostgreSQL devem ser continuamente monitoradas e otimizadas. Índices e queries eficientes são obrigatórios para evitar lentidão no Dashboard e nos relatórios históricos.
 
-## [SECTION_2_NAME]
-<!-- Example: Additional Constraints, Security Requirements, Performance Standards, etc. -->
+## Stack Tecnológica e Restrições
 
-[SECTION_2_CONTENT]
-<!-- Example: Technology stack requirements, compliance standards, deployment policies, etc. -->
+O projeto baseia-se na seguinte stack:
+- **Frontend**: React (JavaScript) com foco em componentização funcional.
+- **Backend**: Python, servindo como API e controlador de regras de negócio.
+- **Banco de Dados**: PostgreSQL, utilizando tipos de dados apropriados para controle de estoque e datas.
+- **Arquitetura**: MVC puro com desacoplamento entre UI e Persistência.
 
-## [SECTION_3_NAME]
-<!-- Example: Development Workflow, Review Process, Quality Gates, etc. -->
+## Regras de Negócio e Alertas Críticos
 
-[SECTION_3_CONTENT]
-<!-- Example: Code review requirements, testing gates, deployment approval process, etc. -->
+### Alerta de Validade
+O sistema deve emitir avisos visuais claros sempre que o lote de um item estiver a 7 dias (1 semana) ou menos da data de vencimento.
+
+### Alerta de Estoque Baixo
+Sinalização visual imediata deve ocorrer quando a quantidade atual de um item atingir ou ficar abaixo do valor definido como "estoque mínimo" no cadastro do produto.
 
 ## Governance
-<!-- Example: Constitution supersedes all other practices; Amendments require documentation, approval, migration plan -->
 
-[GOVERNANCE_RULES]
-<!-- Example: All PRs/reviews must verify compliance; Complexity must be justified; Use [GUIDANCE_FILE] for runtime development guidance -->
+- Esta Constituição guia todas as decisões arquiteturais e de design do projeto.
+- Mudanças nos princípios fundamentais (especialmente a restrição de visualização em tabela e a stack técnica) exigem uma emenda constitucional formal com incremento de versão MAJOR.
+- Toda nova funcionalidade deve ser validada contra estes princípios durante a fase de Planejamento e Code Review.
 
-**Version**: [CONSTITUTION_VERSION] | **Ratified**: [RATIFICATION_DATE] | **Last Amended**: [LAST_AMENDED_DATE]
-<!-- Example: Version: 2.1.1 | Ratified: 2025-06-13 | Last Amended: 2025-07-16 -->
+**Version**: 1.0.0 | **Ratified**: 2026-06-03 | **Last Amended**: 2026-06-03
