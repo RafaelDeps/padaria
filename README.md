@@ -12,6 +12,21 @@ O sistema permite a gestão completa do catálogo de produtos e o registro de to
 *   **Dashboard Financeiro (BI):** Visualização de métricas de valor em risco, custo de desperdício e produtos mais vendidos.
 *   **Preservação de Histórico:** Uso de *Soft Delete* para produtos, mantendo a integridade do histórico de movimentações.
 
+## 🐳 Como Rodar com Docker (Recomendado)
+
+A maneira mais rápida de subir o ambiente completo é utilizando o Docker Compose:
+
+1.  **Certifique-se de ter o Docker e Docker Compose instalados.**
+2.  **Na raiz do projeto, execute:**
+    ```bash
+    docker-compose up --build
+    ```
+3.  **Acesse as aplicações:**
+    *   **Frontend:** `http://localhost:3000`
+    *   **Backend (API):** `http://localhost:8000`
+
+---
+
 ## 🛠️ Tecnologias Utilizadas
 
 *   **Backend:** Python 3.11+, FastAPI, SQLAlchemy (ORM), Alembic (Migrations), python-jose (JWT).
