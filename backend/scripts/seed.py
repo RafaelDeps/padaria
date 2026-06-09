@@ -17,18 +17,18 @@ def seed():
                 nome="Administrador",
                 username="admin",
                 senha_hash=get_password_hash("admin123"),
-                cargo="GERENTE"
+                cargo="gerente"
             )
             db.add(admin)
             
-            # Add an attendant for testing
-            attendant = User(
-                nome="Atendente Teste",
-                username="atendente",
-                senha_hash=get_password_hash("atendente123"),
-                cargo="ATENDENTE"
+            # Add a funcionario for testing
+            funcionario = User(
+                nome="Funcionário Teste",
+                username="funcionario",
+                senha_hash=get_password_hash("funcionario123"),
+                cargo="funcionario"
             )
-            db.add(attendant)
+            db.add(funcionario)
             
             db.commit()
             print("Database seeded successfully!")

@@ -27,8 +27,8 @@ class RoleChecker:
             )
         return user
 
-def manager_only(user: dict = Depends(RoleChecker(["GERENTE"]))):
+def manager_only(user: dict = Depends(RoleChecker(["gerente"]))):
     return user
 
-def all_roles(user: dict = Depends(RoleChecker(["GERENTE", "ATENDENTE"]))):
+def all_roles(user: dict = Depends(RoleChecker(["gerente", "funcionario"]))):
     return user

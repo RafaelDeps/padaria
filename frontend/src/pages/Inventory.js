@@ -35,8 +35,9 @@ const Inventory = () => {
       setShowForm(false);
       setEditingProduct(null);
       fetchProducts();
+      toast.success(editingProduct ? "Produto atualizado!" : "Produto criado com sucesso!");
     } catch (err) {
-      alert("Erro ao salvar produto");
+      toast.error("Erro ao salvar produto");
     }
   };
 
@@ -45,8 +46,9 @@ const Inventory = () => {
       try {
         await api.delete(`/produtos/${id}`);
         fetchProducts();
+        toast.success("Produto excluído!");
       } catch (err) {
-        alert("Erro ao excluir produto");
+        toast.error("Erro ao excluir produto");
       }
     }
   };
@@ -56,18 +58,19 @@ const Inventory = () => {
       await api.post('/movimentacoes', movementData);
       setMovingProduct(null);
       fetchProducts();
+      toast.success("Movimentação registrada!");
     } catch (err) {
       const errorMsg = err.response?.data?.detail || "Erro ao registrar movimentação";
-      alert(errorMsg);
+      toast.error(errorMsg);
     }
   };
 
   return (
-    <div style={{ padding: '2rem' }}>
-      <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '1rem' }}>
+    <div className="inventory-container">
+      <div className="page-header">
         <h2>Gestão de Estoque</h2>
-        {user?.cargo === 'GERENTE' && (
-          <button onClick={() => { setEditingProduct(null); setShowForm(true); }}>
+        {user?.cargo === 'gerente' && (
+          <button className="btn-primary" onClick={() => { setEditingProduct(null); setShowForm(true); }}>
             + Novo Produto
           </button>
         )}

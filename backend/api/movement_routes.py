@@ -32,4 +32,9 @@ def read_movements(db: Session = Depends(get_db), user=Depends(all_roles)):
 
 @router.post("/", response_model=MovementResponse)
 def create_movement(movement: MovementCreate, db: Session = Depends(get_db), user=Depends(all_roles)):
+    if user['cargo'] == 'funcionario' and movement.tipo == 'ENTRADA':
+        raise HTTPException(
+            status_code=status.HTTP_403_FORBIDDEN,
+            detail="Funcionários só podem registrar retiradas de estoque"
+        )
     return movement_controller.create_movement(db, movement.dict(), user['id'])
