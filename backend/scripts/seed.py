@@ -4,10 +4,13 @@ import sys
 sys.path.append(os.path.join(os.path.dirname(__file__), ".."))
 
 from models.database import SessionLocal
+from models.base import Base
+from models.database import engine
 from models.user import User
 from auth.jwt_utils import get_password_hash
 
 def seed():
+    Base.metadata.create_all(bind=engine)
     db = SessionLocal()
     try:
         # Check if admin already exists

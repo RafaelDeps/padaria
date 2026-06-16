@@ -14,7 +14,7 @@ load_dotenv()
 config = context.config
 
 if not config.get_main_option("sqlalchemy.url"):
-    config.set_main_option("sqlalchemy.url", os.getenv("DATABASE_URL"))
+    config.set_main_option("sqlalchemy.url", os.getenv("DATABASE_URL", "sqlite:///./database.db"))
 
 from models.base import Base
 from models.user import User
