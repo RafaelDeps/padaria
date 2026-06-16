@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import api from '../services/api';
 import { useAuth } from '../context/AuthContext';
+import { toast } from 'react-toastify';
 import EstoqueDataTable from '../components/EstoqueDataTable';
 import ProductForm from '../components/ProductForm';
 import MovimentacaoForm from '../components/MovimentacaoForm';
@@ -37,7 +38,8 @@ const Inventory = () => {
       fetchProducts();
       toast.success(editingProduct ? "Produto atualizado!" : "Produto criado com sucesso!");
     } catch (err) {
-      toast.error("Erro ao salvar produto");
+      const errorMsg = err.response?.data?.detail || "Erro ao salvar produto";
+      toast.error(Array.isArray(errorMsg) ? errorMsg.map((e) => e.msg).join(', ') : errorMsg);
     }
   };
 

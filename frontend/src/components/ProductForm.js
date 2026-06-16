@@ -1,5 +1,14 @@
 import React, { useState, useEffect } from 'react';
 
+const formatDateForInput = (value) => {
+  if (!value) return '';
+  if (typeof value === 'string') return value.slice(0, 10);
+  if (value instanceof Date && !Number.isNaN(value.getTime())) {
+    return value.toISOString().slice(0, 10);
+  }
+  return '';
+};
+
 const ProductForm = ({ onSubmit, initialData, onCancel }) => {
   const [formData, setFormData] = useState({
     nome: '',
@@ -11,7 +20,13 @@ const ProductForm = ({ onSubmit, initialData, onCancel }) => {
 
   useEffect(() => {
     if (initialData) {
-      setFormData(initialData);
+      setFormData({
+        nome: initialData.nome ?? '',
+        categoria: initialData.categoria ?? '',
+        estoque_minimo: initialData.estoque_minimo ?? 0,
+        preco_unitario: initialData.preco_unitario ?? 0,
+        data_validade: formatDateForInput(initialData.data_validade),
+      });
     }
   }, [initialData]);
 
@@ -22,7 +37,12 @@ const ProductForm = ({ onSubmit, initialData, onCancel }) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    onSubmit(formData);
+    onSubmit({
+      ...formData,
+      estoque_minimo: Number(formData.estoque_minimo),
+      preco_unitario: Number(formData.preco_unitario),
+      data_validade: formatDateForInput(formData.data_validade),
+    });
   };
 
   return (

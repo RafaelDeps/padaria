@@ -30,6 +30,11 @@ def get_product(db: Session, product_id: int):
 
 def create_product(db: Session, product_data: dict):
     db_product = Product(**product_data)
+    if db_product.data_validade and db_product.data_validade < datetime.now().date():
+        raise HTTPException(
+            status_code=status.HTTP_400_BAD_REQUEST,
+            detail="A data de validade nao pode estar no passado",
+        )
     db.add(db_product)
     db.commit()
     db.refresh(db_product)
@@ -41,6 +46,11 @@ def update_product(db: Session, product_id: int, product_data: dict):
         raise HTTPException(status_code=404, detail="Product not found")
     for key, value in product_data.items():
         setattr(db_product, key, value)
+    if db_product.data_validade and db_product.data_validade < datetime.now().date():
+        raise HTTPException(
+            status_code=status.HTTP_400_BAD_REQUEST,
+            detail="A data de validade nao pode estar no passado",
+        )
     db.commit()
     db.refresh(db_product)
     return db_product
@@ -52,3 +62,4 @@ def delete_product(db: Session, product_id: int):
     db_product.is_ativo = False # Soft delete
     db.commit()
     return {"message": "Product deleted (soft delete)"}
+

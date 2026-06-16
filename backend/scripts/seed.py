@@ -7,6 +7,8 @@ from models.database import SessionLocal
 from models.base import Base
 from models.database import engine
 from models.user import User
+from models.product import Product
+from models.movement import Movement
 from auth.jwt_utils import get_password_hash
 
 def seed():
