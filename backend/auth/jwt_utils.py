@@ -7,10 +7,8 @@ from dotenv import load_dotenv
 
 load_dotenv()
 
-# Security: require SECRET_KEY in production, fail if not set
-SECRET_KEY = os.getenv("SECRET_KEY")
-if not SECRET_KEY:
-    raise ValueError("SECRET_KEY environment variable must be set")
+# Development default secret key. Override with SECRET_KEY in .env or environment variables.
+SECRET_KEY = os.getenv("SECRET_KEY", "padaria-default-secret-key")
 
 ALGORITHM = os.getenv("ALGORITHM", "HS256")
 ACCESS_TOKEN_EXPIRE_MINUTES = int(os.getenv("ACCESS_TOKEN_EXPIRE_MINUTES", 30))

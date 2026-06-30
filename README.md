@@ -23,31 +23,36 @@ A maneira mais rápida de subir o ambiente completo é utilizando o Docker Compo
     docker compose up
     ```
 
-2.1  **Para criar um ambiente virtual local `.venv` no backend e instalar as dependências usando Docker:**
+3.  **Para criar um ambiente virtual local `.venv` no backend e instalar as dependências usando Docker:**
     ```bash
     docker compose run --rm backend sh -c 'python -m venv .venv && . .venv/bin/activate && pip install --no-cache-dir -r requirements.txt'
     ```
 
-3.  **Acesse as aplicações:**
+4.  **Para criar o ambiente virtual local no backend com um comando direto:**
+    ```bash
+    bash backend/setup_venv.sh
+    ```
+
+5.  **Acesse as aplicações:**
     *   **Frontend:** `http://localhost:3000`
     *   **Backend (API):** `http://localhost:8000`
-4.  **Caso queira parar a execução de Ctrl+C no terminal e execute:**
+
+6.  **Para parar o Docker Compose:**
     ```bash
     docker compose down
     ```
-5.  **Caso ja tenha dado o build anteriormente e queira iniciar execute:**
+
+7.  **Para iniciar novamente depois do build:**
     ```bash
     docker compose up
     ```
 
-**Nota:** O Dockerfile já cria automaticamente um ambiente virtual e o arquivo `.env` com valores padrão.
----
+**Nota:** O `docker-compose.yml` não exige mais `backend/.env`. O backend funciona com valores padrão se não houver arquivo de ambiente.
 
-## 🛠️ Tecnologias Utilizadas
-
-*   **Backend:** Python 3.11+, FastAPI, SQLAlchemy (ORM), Alembic (Migrations), python-jose (JWT).
-*   **Frontend:** React 18, Axios, React Router, Context API.
-*   **Banco de Dados:** SQLite (configurado para desenvolvimento ágil).
+**Opcional:** se quiser usar configurações customizadas, crie `backend/.env` a partir do modelo:
+```bash
+cp backend/.env.example backend/.env
+```
 
 ## 📋 Pré-requisitos
 
