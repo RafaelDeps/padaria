@@ -32,7 +32,7 @@ class ProductResponse(ProductBase):
 
 @router.get("/", response_model=List[ProductResponse])
 def read_products(stagnant: bool = False, db: Session = Depends(get_db), user=Depends(all_roles)):
-    return product_controller.get_products(db, stagnant=stagnant)
+    return product_controller.get_products(db, active_only=not stagnant, stagnant=stagnant)
 
 @router.post("/", response_model=ProductResponse)
 def create_product(product: ProductCreate, db: Session = Depends(get_db), user=Depends(manager_only)):

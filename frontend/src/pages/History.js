@@ -3,6 +3,8 @@ import api from '../services/api';
 
 const History = () => {
   const [movements, setMovements] = useState([]);
+  const [products, setProducts] = useState({});
+  const [users, setUsers] = useState({});
 
   const fetchMovements = async () => {
     try {
@@ -13,9 +15,39 @@ const History = () => {
     }
   };
 
+  const fetchProducts = async () => {
+    try {
+      const response = await api.get('/produtos');
+      const productMap = {};
+      response.data.forEach(p => { productMap[p.id] = p.nome; });
+      setProducts(productMap);
+    } catch (err) {
+      console.error("Erro ao buscar produtos", err);
+    }
+  };
+
+  const fetchUsers = async () => {
+    try {
+      const response = await api.get('/usuarios');
+      const userMap = {};
+      response.data.forEach(u => { userMap[u.id] = u.nome; });
+      setUsers(userMap);
+    } catch (err) {
+      console.error("Erro ao buscar usuários", err);
+    }
+  };
+
   useEffect(() => {
     fetchMovements();
+    fetchProducts();
+    fetchUsers();
   }, []);
+
+  const formatDate = (dateStr) => {
+    if (!dateStr) return '-';
+    const date = new Date(dateStr);
+    return isNaN(date.getTime()) ? '-' : date.toLocaleString();
+  };
 
   return (
     <div className="history-container">
@@ -25,8 +57,8 @@ const History = () => {
           <thead>
             <tr>
               <th>Data/Hora</th>
-              <th>Produto ID</th>
-              <th>Usuário ID</th>
+              <th>Produto</th>
+              <th>Usuário</th>
               <th>Tipo</th>
               <th>Qtd</th>
               <th>Observação</th>
@@ -35,16 +67,16 @@ const History = () => {
           <tbody>
             {movements.map(m => (
               <tr key={m.id}>
-                <td>{new Date(m.data_hora).toLocaleString()}</td>
-                <td>{m.produto_id}</td>
-                <td>{m.usuario_id}</td>
+                <td>{formatDate(m.data_hora)}</td>
+                <td>{products[m.produto_id] || `ID ${m.produto_id}`}</td>
+                <td>{users[m.usuario_id] || `ID ${m.usuario_id}`}</td>
                 <td>
                   <span className={m.tipo === 'ENTRADA' ? 'text-success' : 'text-danger'}>
                     {m.tipo}
                   </span>
                 </td>
                 <td>{m.quantidade}</td>
-                <td>{m.observacao}</td>
+                <td>{m.observacao || '-'}</td>
               </tr>
             ))}
           </tbody>

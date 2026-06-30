@@ -29,7 +29,7 @@ const Dashboard = () => {
   if (user?.cargo === 'funcionario') {
     return (
       <div style={{ padding: '3rem', textAlign: 'center', color: 'var(--dark-brown)' }}>
-        <h2>Bem-vindo, {user.nome}!</h2>
+        <h2>Bem-vindo, {user?.nome || 'Usuário'}!</h2>
         <p>Acesse a aba <strong>Estoque</strong> no menu superior para consultar produtos e registrar saídas/vendas.</p>
       </div>
     );

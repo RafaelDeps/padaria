@@ -2,6 +2,7 @@ from sqlalchemy.orm import Session
 from sqlalchemy import func
 from models.product import Product
 from models.movement import Movement
+from models.user import User
 from datetime import datetime, timedelta
 
 def get_stats(db: Session):
@@ -40,10 +41,22 @@ def get_stats(db: Session):
         Movement.observacao.ilike('%Vencido%')
     ).scalar() or 0.0
 
+    # alertas_inatividade: products with no movements in the last 15 days
+    fifteen_days_ago = datetime.now() - timedelta(days=15)
+    recent_movement_ids = db.query(Movement.produto_id).filter(
+        Movement.data_hora >= fifteen_days_ago
+    ).distinct().all()
+    recent_ids = [m[0] for m in recent_movement_ids]
+    alertas_inatividade = db.query(func.count(Product.id)).filter(
+        Product.is_ativo == True,
+        ~Product.id.in_(recent_ids)
+    ).scalar() or 0
+
     return {
         "total_valor_risco": float(total_valor_risco),
         "custo_desperdicio": float(custo_desperdicio),
-        "produto_mais_vendido": best_seller[0] if best_seller else "N/A",
+        "produto_mais_vendido": best_seller[0] if best_seller and best_seller[0] else "N/A",
         "alertas_vencimento": alertas_vencimento,
-        "alertas_estoque_baixo": alertas_estoque_baixo
+        "alertas_estoque_baixo": alertas_estoque_baixo,
+        "alertas_inatividade": alertas_inatividade
     }

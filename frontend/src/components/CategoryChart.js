@@ -1,6 +1,19 @@
 import React from 'react';
 
 const CategoryChart = ({ products }) => {
+  if (!products || !Array.isArray(products) || products.length === 0) {
+    return (
+      <div className="table-container" style={{ padding: '1.5rem' }}>
+        <h3 style={{ marginTop: 0, borderBottom: '2px solid var(--secondary-color)', paddingBottom: '0.5rem' }}>
+          Distribuição por Categoria
+        </h3>
+        <p style={{ color: 'var(--text-light)', textAlign: 'center', marginTop: '1rem' }}>
+          Nenhum produto encontrado
+        </p>
+      </div>
+    );
+  }
+
   const categories = products.reduce((acc, p) => {
     const cat = p.categoria.toLowerCase();
     acc[cat] = (acc[cat] || 0) + p.quantidade_atual;

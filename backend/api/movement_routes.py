@@ -4,7 +4,7 @@ from typing import List
 from models.database import get_db
 from controllers import movement_controller
 from auth.middleware import all_roles
-from pydantic import BaseModel
+from pydantic import BaseModel, validator
 from datetime import datetime
 
 router = APIRouter(prefix="/movimentacoes", tags=["Movements"])
@@ -14,6 +14,12 @@ class MovementBase(BaseModel):
     tipo: str # 'ENTRADA' or 'SAIDA'
     quantidade: int
     observacao: str = None
+
+    @validator('quantidade')
+    def validate_quantidade(cls, v):
+        if v is None or v <= 0:
+            raise ValueError('quantidade deve ser maior que zero')
+        return v
 
 class MovementCreate(MovementBase):
     pass
