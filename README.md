@@ -19,7 +19,7 @@ A maneira mais rápida de subir o ambiente completo é utilizando o Docker Compo
 1.  **Certifique-se de ter o Docker e Docker Compose instalados.**
 2.  **Na raiz do projeto, na primeira vez que for rodar, execute:**
     ```bash
-    docker compose build --no-cache
+    docker compose build
     docker compose up
     ```
 3.  **Acesse as aplicações:**
