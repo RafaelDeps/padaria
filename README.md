@@ -19,7 +19,8 @@ A maneira mais rápida de subir o ambiente completo é utilizando o Docker Compo
 1.  **Certifique-se de ter o Docker e Docker Compose instalados.**
 2.  **Na raiz do projeto, na primeira vez que for rodar, execute:**
     ```bash
-    docker compose up --build
+    docker compose build --no-cache
+    docker compose up
     ```
 3.  **Acesse as aplicações:**
     *   **Frontend:** `http://localhost:3000`
@@ -32,6 +33,8 @@ A maneira mais rápida de subir o ambiente completo é utilizando o Docker Compo
     ```bash
     docker-compose up
     ```
+
+**Nota:** O Dockerfile já cria automaticamente um ambiente virtual e o arquivo `.env` com valores padrão.
 ---
 
 ## 🛠️ Tecnologias Utilizadas
