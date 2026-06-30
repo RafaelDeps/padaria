@@ -14,37 +14,43 @@ O sistema permite a gestão completa do catálogo de produtos e o registro de to
 
 ## 🐳 Como Rodar com Docker (Recomendado)
 
-A maneira mais rápida de subir o ambiente completo é utilizando o Docker Compose:
+A maneira mais rápida de subir o ambiente completo é utilizando o Docker Compose e o backend dentro do WSL/Linux.
 
 1.  **Certifique-se de ter o Docker e Docker Compose instalados.**
-2.  **Na raiz do projeto, na primeira vez que for rodar, execute:**
+2.  **Na raiz do projeto, construa as imagens do Docker:**
     ```bash
     docker compose build
-    docker compose up
     ```
-
-3.  **Para criar um ambiente virtual local `.venv` no backend e instalar as dependências usando Docker:**
+3.  **Crie a venv local no backend e instale as dependências usando Docker:**
     ```bash
     docker compose run --rm backend sh -c 'python -m venv .venv && . .venv/bin/activate && pip install --no-cache-dir -r requirements.txt'
     ```
+    > Esse comando cria a venv em `backend/.venv` e instala os pacotes do `requirements.txt`.
 
-4.  **Para criar o ambiente virtual local no backend com um comando direto:**
+4.  **Se preferir criar a venv diretamente no WSL/Linux e já ativar no shell atual:**
     ```bash
-    bash backend/setup_venv.sh
+    source backend/setup_venv.sh
+    ```
+    > Use `source` para ativar no mesmo shell. Não execute com `bash backend/setup_venv.sh` se quiser manter o ambiente ativado.
+
+5.  **Popular o banco de dados com dados iniciais:**
+    ```bash
+    docker compose run --rm backend sh -c 'python seed.py'
+    ```
+    > O `seed.py` cria as tabelas e insere usuários, produtos e movimentações de exemplo.
+
+6.  **Inicie o projeto com Docker Compose:**
+    ```bash
+    docker compose up
     ```
 
-5.  **Acesse as aplicações:**
+7.  **Acesse as aplicações:**
     *   **Frontend:** `http://localhost:3000`
     *   **Backend (API):** `http://localhost:8000`
 
-6.  **Para parar o Docker Compose:**
+8.  **Para parar o Docker Compose:**
     ```bash
     docker compose down
-    ```
-
-7.  **Para iniciar novamente depois do build:**
-    ```bash
-    docker compose up
     ```
 
 **Nota:** O `docker-compose.yml` não exige mais `backend/.env`. O backend funciona com valores padrão se não houver arquivo de ambiente.
@@ -53,6 +59,17 @@ A maneira mais rápida de subir o ambiente completo é utilizando o Docker Compo
 ```bash
 cp backend/.env.example backend/.env
 ```
+
+### Resumo dos comandos e ordem de uso
+
+| Passo | Comando | Descrição |
+| --- | --- | --- |
+| 1 | `docker compose build` | Constrói as imagens Docker necessárias |
+| 2 | `docker compose run --rm backend sh -c 'python -m venv .venv && . .venv/bin/activate && pip install --no-cache-dir -r requirements.txt'` | Cria a venv e instala dependências no backend |
+| 3 | `source backend/setup_venv.sh` | Cria e ativa a venv no shell WSL atual (opcional) |
+| 4 | `docker compose run --rm backend sh -c 'python seed.py'` | Popula o banco com dados iniciais |
+| 5 | `docker compose up` | Sobe o frontend e backend |
+| 6 | `docker compose down` | Para o ambiente Docker |
 
 ## 📋 Pré-requisitos
 
@@ -128,7 +145,7 @@ Após rodar o script de `seed.py`, você poderá acessar o sistema com os seguin
 
 | Perfil | Usuário | Senha |
 | :--- | :--- | :--- |
-| **Gerente** | `rafael` | `123456` |
+| **Gerente** | `lucas` | `123456` |
 | **Atendente** | `maria` | `123456` |
 | **Atendente** | `joao` | `123456` |
 
@@ -154,6 +171,6 @@ python seed.py
 ```
 
 Este script cria:
-- 3 usuários (rafael/maria/joao com senha 123456)
+- 3 usuários (lucas/maria/joao com senha 123456)
 - 13 produtos (pães, bolos, salgados, bebidas)
 - Movimentações de exemplo (entradas, saídas, vendas, vencidos)

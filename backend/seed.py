@@ -30,7 +30,7 @@ def create_tables():
 def seed_users(db):
     """Cria usuários de exemplo"""
     users = [
-        User(nome="Rafael Santos", username="rafael", senha_hash=get_password_hash("123456"), cargo="gerente"),
+        User(nome="Lucas Almeida", username="lucas", senha_hash=get_password_hash("123456"), cargo="gerente"),
         User(nome="Maria Oliveira", username="maria", senha_hash=get_password_hash("123456"), cargo="funcionario"),
         User(nome="João Silva", username="joao", senha_hash=get_password_hash("123456"), cargo="funcionario"),
     ]
