@@ -3,7 +3,7 @@ node_modules/
 Dockerfile*
 .dockerignore
 *.log*
-.env*
+
 coverage/
 venv/
 __pycache__/

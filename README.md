@@ -22,16 +22,22 @@ A maneira mais rápida de subir o ambiente completo é utilizando o Docker Compo
     docker compose build
     docker compose up
     ```
+
+2.1  **Para criar um ambiente virtual local `.venv` no backend e instalar as dependências usando Docker:**
+    ```bash
+    docker compose run --rm backend sh -c 'python -m venv .venv && . .venv/bin/activate && pip install --no-cache-dir -r requirements.txt'
+    ```
+
 3.  **Acesse as aplicações:**
     *   **Frontend:** `http://localhost:3000`
     *   **Backend (API):** `http://localhost:8000`
 4.  **Caso queira parar a execução de Ctrl+C no terminal e execute:**
     ```bash
-    docker-compose down
+    docker compose down
     ```
 5.  **Caso ja tenha dado o build anteriormente e queira iniciar execute:**
     ```bash
-    docker-compose up
+    docker compose up
     ```
 
 **Nota:** O Dockerfile já cria automaticamente um ambiente virtual e o arquivo `.env` com valores padrão.
