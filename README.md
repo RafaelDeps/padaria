@@ -77,7 +77,7 @@ Certifique-se de ter instalado em sua máquina:
 
 6.  **Popule o banco com dados iniciais (Seed):**
     ```bash
-    python scripts/seed.py
+    python seed.py
     ```
 
 7.  **Inicie o servidor:**
@@ -114,8 +114,9 @@ Após rodar o script de `seed.py`, você poderá acessar o sistema com os seguin
 
 | Perfil | Usuário | Senha |
 | :--- | :--- | :--- |
-| **Gerente** | `admin` | `admin123` |
-| **Atendente** | `atendente` | `atendente123` |
+| **Gerente** | `rafael` | `123456` |
+| **Atendente** | `maria` | `123456` |
+| **Atendente** | `joao` | `123456` |
 
 ---
 
@@ -126,3 +127,19 @@ Para rodar os testes unitários do backend:
 cd backend
 PYTHONPATH=. ./venv/bin/pytest
 ```
+
+---
+
+## 📦 Popular Banco com Dados de Exemplo
+
+Para criar dados de exemplo (usuários, produtos, movimentações):
+
+```bash
+cd backend
+python seed.py
+```
+
+Este script cria:
+- 3 usuários (rafael/maria/joao com senha 123456)
+- 13 produtos (pães, bolos, salgados, bebidas)
+- Movimentações de exemplo (entradas, saídas, vendas, vencidos)
