@@ -17,14 +17,21 @@ O sistema permite a gestão completa do catálogo de produtos e o registro de to
 A maneira mais rápida de subir o ambiente completo é utilizando o Docker Compose:
 
 1.  **Certifique-se de ter o Docker e Docker Compose instalados.**
-2.  **Na raiz do projeto, execute:**
+2.  **Na raiz do projeto, na primeira vez que for rodar, execute:**
     ```bash
     docker compose up --build
     ```
 3.  **Acesse as aplicações:**
     *   **Frontend:** `http://localhost:3000`
     *   **Backend (API):** `http://localhost:8000`
-
+4.  **Caso queira parar a execução de Ctrl+C no terminal e execute:**
+    ```bash
+    docker-compose down
+    ```
+5.  **Caso ja tenha dado o build anteriormente e queira iniciar execute:**
+    ```bash
+    docker-compose up
+    ```
 ---
 
 ## 🛠️ Tecnologias Utilizadas
