@@ -1,16 +1,23 @@
+version: '3.8'
 services:
   backend:
     build: ./backend
+    image: rafaeladeps/padaria-backend:v1
     ports:
       - "8000:8000"
+    environment:
+      - DATABASE_URL=sqlite:///./database.db
+      - SECRET_KEY=chave_super_secreta_producao_ifes
     volumes:
-      - ./backend:/app
+      - backend_data:/app
+
   frontend:
     build: ./frontend
+    image: rafaeladeps/padaria-frontend:v1
     ports:
       - "3000:3000"
-    environment:
-      - WDS_SOCKET_PORT=0
-      - CHOKIDAR_USEPOLLING=true
     depends_on:
       - backend
+
+volumes:
+  backend_data:
