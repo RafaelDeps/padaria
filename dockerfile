@@ -37,8 +37,11 @@ COPY backend/ /app/
 # Mover os arquivos compilados do React para a pasta pública do Nginx
 COPY --from=frontend-builder /app/frontend/build /var/www/html
 
+RUN python seed.py
+
 # Porta exigida pelo script do professor
 EXPOSE 8080
+
 
 # Inicializa o Nginx em segundo plano e o Uvicorn no plano principal
 CMD nginx && uvicorn main:app --host 127.0.0.1 --port 8000
