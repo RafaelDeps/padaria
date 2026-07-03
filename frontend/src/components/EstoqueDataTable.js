@@ -1,6 +1,6 @@
 import React from 'react';
 
-const EstoqueDataTable = ({ products, onEdit, onDelete, onMove, userRole }) => {
+const EstoqueDataTable = ({ products, onEdit, onDelete, onMove, onProduce, userRole }) => {
   const isGerente = userRole === 'gerente';
 
   const getRowClass = (p) => {
@@ -40,6 +40,9 @@ const EstoqueDataTable = ({ products, onEdit, onDelete, onMove, userRole }) => {
               <td>{p.data_validade}</td>
               <td style={{ display: 'flex', gap: '5px' }}>
                 <button className="btn-outline" onClick={() => onMove(p)}>Movimentar</button>
+                {p.is_manufactured && (
+                  <button className="btn-secondary" onClick={() => onProduce(p)}>Produzir</button>
+                )}
                 {isGerente && (
                   <>
                     <button className="btn-secondary" onClick={() => onEdit(p)}>Editar</button>

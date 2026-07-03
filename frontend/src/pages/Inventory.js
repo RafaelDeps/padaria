@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import api from '../services/api';
+import api, { produceProduct, addRecipeIngredient, syncRecipe } from '../services/api';
 import { useAuth } from '../context/AuthContext';
 import { toast } from 'react-toastify';
 import EstoqueDataTable from '../components/EstoqueDataTable';
@@ -27,12 +27,22 @@ const Inventory = () => {
   }, []);
 
   const handleCreateOrUpdate = async (formData) => {
+    const { recipeList, ...productData } = formData;
     try {
+      let productId;
       if (editingProduct) {
-        await api.put(`/produtos/${editingProduct.id}`, formData);
+        await api.put(`/produtos/${editingProduct.id}`, productData);
+        productId = editingProduct.id;
       } else {
-        await api.post('/produtos', formData);
+        const res = await api.post('/produtos', productData);
+        productId = res.data.id;
       }
+
+      // Sync recipe if product is manufactured
+      if (productId && recipeList && recipeList.length > 0) {
+        await syncRecipe(productId, recipeList);
+      }
+
       setShowForm(false);
       setEditingProduct(null);
       fetchProducts();
@@ -67,6 +77,24 @@ const Inventory = () => {
     }
   };
 
+  const handleProduce = async (product) => {
+    const qtyStr = window.prompt(`Quantidade de "${product.nome}" a produzir:`);
+    if (!qtyStr) return;
+    const qty = parseFloat(qtyStr);
+    if (isNaN(qty) || qty <= 0) {
+      alert("Quantidade inválida");
+      return;
+    }
+    try {
+      await produceProduct(product.id, qty);
+      toast.success(`Produzido ${qty} unidades de ${product.nome}`);
+      fetchProducts();
+    } catch (err) {
+      const errorMsg = err.response?.data?.detail || "Erro ao produzir";
+      alert(errorMsg);
+    }
+  };
+
   return (
     <div className="inventory-container">
       <div className="page-header">
@@ -94,11 +122,12 @@ const Inventory = () => {
         />
       )}
 
-      <EstoqueDataTable 
-        products={products} 
+      <EstoqueDataTable
+        products={products}
         onEdit={(p) => { setEditingProduct(p); setShowForm(true); }}
         onDelete={handleDelete}
         onMove={(p) => setMovingProduct(p)}
+        onProduce={handleProduce}
         userRole={user?.cargo}
       />
     </div>

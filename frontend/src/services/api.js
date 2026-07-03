@@ -19,4 +19,8 @@ api.interceptors.request.use(
   }
 );
 
+export const produceProduct = (id, qty) => api.post(`/produtos/${id}/produce`, { quantity: qty });
+export const addRecipeIngredient = (id, ing_id, qty) => api.post(`/produtos/${id}/ingredients`, { ingredient_id: ing_id, quantity: qty });
+export const syncRecipe = (productId, recipeList) => api.put(`/produtos/${productId}/receita`, { recipe: recipeList });
+
 export default api;
