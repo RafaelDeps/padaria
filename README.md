@@ -2,7 +2,7 @@
 
 Este sistema foi desenvolvido para oferecer um controle preciso e eficiente do inventário de uma padaria, garantindo a integridade dos dados através de Controle de Acesso Baseado em Funções (RBAC).
 
-A aplicação foi completamente empacotada ("conteinerizada") utilizando processos de *multi-stage build* e proxy reverso com Nginx, estando pronta para ser executada em qualquer ambiente corporativo.
+A aplicação foi completamente empacotada ("conteinerizada"/"dockerizada") utilizando processos de *multi-stage build* e proxy reverso com Nginx, estando pronta para ser executada em qualquer ambiente corporativo.
 
 ## 🚀 Visão Geral
 
