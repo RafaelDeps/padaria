@@ -6,7 +6,7 @@ A aplicação foi completamente empacotada ("conteinerizada") utilizando process
 
 ## 🚀 Visão Geral
 
-O sistema permite a gestão completa do catálogo de produtos, matérias-primas e o registro de todas as movimentações de entrada e saída, com suporte a fichas técnicas de produção.
+O sistema permite a gestão completa do catálogo de produtos e matérias-primas, além do registro de todas as movimentações de entrada e saída de estoque, com suporte às fichas técnicas de produção.
 
 *   **Controle de Estoque Rigoroso:** Bloqueio automático de saídas que resultariam em estoque negativo e suporte a decimais para consumo exato de ingredientes em receitas.
 *   **Gestão de Produção (Ficha Técnica):** Integração automática onde a produção de um item manufaturado desconta automaticamente as matérias-primas baseadas na receita cadastrada.
