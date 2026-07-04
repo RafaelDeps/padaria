@@ -1,8 +1,8 @@
 # Sistema de Gestão de Estoque para Padaria
 
-Este sistema foi desenvolvido para oferecer um controle preciso e eficiente do inventário de uma padaria, garantindo a integridade dos dados através de Controle de Acesso Baseado em Funções (RBAC) e prevenindo perdas com alertas inteligentes e bloqueios de estoque negativo. 
+Este sistema foi desenvolvido para oferecer um controle preciso e eficiente do inventário de uma padaria, garantindo a integridade dos dados através de Controle de Acesso Baseado em Funções (RBAC).
 
-A aplicação foi completamente empacotada ("conteinerizada") utilizando processos de *multi-stage build* e proxy reverso com Nginx, estando pronta para ser executada em qualquer ambiente corporativo ou acadêmico.
+A aplicação foi completamente empacotada ("conteinerizada") utilizando processos de *multi-stage build* e proxy reverso com Nginx, estando pronta para ser executada em qualquer ambiente corporativo.
 
 ## 🚀 Visão Geral
 
@@ -19,12 +19,20 @@ O sistema permite a gestão completa do catálogo de produtos, matérias-primas 
 
 ## 🐳 Como Rodar o Sistema (Avaliação via Docker)
 
-A maneira oficial e mais rápida de avaliar este projeto é utilizando a imagem consolidada disponível publicamente no **Docker Hub**. O banco de dados (`SQLite`) já vem embutido na imagem e preenchido com dados de exemplo (produtos, receitas e usuários).
+A maneira oficial e mais rápida de avaliar este projeto é utilizando a imagem consolidada disponível publicamente no **Docker Hub**. O banco de dados (`SQLite`) já vem embutido na imagem e preconfigurado.
 
 ### 📋 Pré-requisitos
 *   **Docker Desktop** (ou Docker Engine) instalado e rodando em sua máquina.
 
-### 🏃 Passo a Passo
+### 🖥️ Acesso pelo Docker Desktop (Interface Gráfica)
+
+1. Inicie o **Docker Desktop**.
+2. Acesse **https://hub.docker.com/r/rafaeladeps/padaria-app** e clique em **“Run in Docker Desktop”** para fazer o pull da imagem (caso ainda não tenha).
+3. No Docker Desktop, execute (**Run**) a imagem.
+4. Na tela de criação do contêiner, defina um número de porta.
+5. Clique no link exibido abaixo do nome do contêiner, com a porta selecionada, para abrir o site.
+
+### 🏃 Passo a Passo (Terminal)
 
 1.  Abra o seu terminal (Prompt de Comando, PowerShell, WSL ou terminal do macOS/Linux).
 2.  Execute o comando abaixo. O Docker irá baixar a imagem mais recente do repositório no Docker Hub e iniciar o sistema isolado em sua máquina:
