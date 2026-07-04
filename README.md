@@ -32,7 +32,7 @@ A maneira oficial e mais rápida de avaliar este projeto é utilizando a imagem 
 4. Na tela de criação do contêiner, defina um número de porta.
 5. Clique no link exibido abaixo do nome do contêiner, com a porta selecionada, para abrir o site.
 
-### 🏃 Passo a Passo (Terminal)
+### 🏃 Passo a Passo  (Terminal/cmd)
 
 1.  Abra o seu terminal (Prompt de Comando, PowerShell, WSL ou terminal do macOS/Linux).
 2.  Execute o comando abaixo. O Docker irá baixar a imagem mais recente do repositório no Docker Hub e iniciar o sistema isolado em sua máquina:
